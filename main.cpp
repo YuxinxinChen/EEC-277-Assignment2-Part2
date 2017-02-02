@@ -33,37 +33,61 @@
 
 static const struct
 {
-    float XYZW[4];
-    float RGBA[4];
-} vertices[17] =
+    float x,y,z,w;
+
+} vertices[68] =
 {
-        { { 0.0f, 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f } }, // 0
+        0.0f, 0.0f, 0.0f, 1.0f , //0
 
-        // Top
-        { { -0.2f, 0.8f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } }, // 1
-        { { 0.2f, 0.8f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }, // 2
-        { { 0.0f, 0.8f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f } }, //3
-        { { 0.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },  // 4
+        -0.2f, 0.8f, 0.0f, 1.0f, //1
+        0.2f, 0.8f, 0.0f, 1.0f, //2
+        0.0f, 0.8f, 0.0f, 1.0f, //3
+        0.0f, 1.0f, 0.0f, 1.0f, //4
 
-        // Bottom
-        { { -0.2f, -0.8f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }, // 5
-        { { 0.2f, -0.8f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } }, // 6
-        { { 0.0f, -0.8f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f } }, //7
-        { { 0.0f, -1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },  // 8
+        -0.2f, -0.8f, 0.0f, 1.0f, //5
+        0.2f, -0.8f, 0.0f, 1.0f, //6
+        0.0f, -0.8f, 0.0f, 1.0f, //7
+        0.0f, -1.0f, 0.0f, 1.0f, //8
 
-        // Left
-        { { -0.8f, -0.2f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } }, // 9
-        { { -0.8f, 0.2f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }, // 10
-        { { -0.8f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f } }, //11
-        { { -1.0f, 0.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },  // 12
+        -0.8f, -0.2f, 0.0f, 1.0f, //9
+        -0.8f, 0.2f, 0.0f, 1.0f, //10
+        -0.8f, 0.0f, 0.0f, 1.0f, //11
+        -1.0f, 0.0f, 0.0f, 1.0f, //12
 
-        // Right
-        { { 0.8f, -0.2f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }, // 13
-        { { 0.8f, 0.2f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } }, // 14
-        { { 0.8f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f } }, //15
-        { { 1.0f, 0.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } }  // 16
+        0.8f, -0.2f, 0.0f, 1.0f, //13
+        0.8f, 0.2f, 0.0f, 1.0f, //14
+        0.8f, 0.0f, 0.0f, 1.0f, //15
+        1.0f, 0.0f, 0.0f, 1.0f //16
 
 };
+
+static const struct
+{
+    float r,g,b,alpha;
+} colors[68] =
+        {
+                1.0f, 1.0f, 1.0f, 1.0f,
+
+                0.0f, 1.0f, 0.0f, 1.0f,
+                0.0f, 0.0f, 1.0f, 1.0f,
+                0.0f, 1.0f, 1.0f, 1.0f,
+                1.0f, 0.0f, 0.0f, 1.0f,
+
+                0.0f, 0.0f, 1.0f, 1.0f,
+                0.0f, 1.0f, 0.0f, 1.0f,
+                0.0f, 1.0f, 1.0f, 1.0f,
+                1.0f, 0.0f, 0.0f, 1.0f,
+
+                0.0f, 1.0f, 0.0f, 1.0f,
+                0.0f, 0.0f, 1.0f, 1.0f,
+                0.0f, 1.0f, 1.0f, 1.0f,
+                1.0f, 0.0f, 0.0f, 1.0f,
+
+                0.0f, 0.0f, 1.0f, 1.0f,
+                0.0f, 1.0f, 0.0f, 1.0f,
+                0.0f, 1.0f, 1.0f, 1.0f,
+                1.0f, 0.0f, 0.0f, 1.0f
+        };
 
 GLuint Indices[48] = {
         // Top
@@ -123,7 +147,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 int main(void)
 {
     GLFWwindow* window;
-    GLuint vertex_buffer, vertex_shader, fragment_shader, program, index_buffer;
+    GLuint vertex_buffer, color_buffer, vertex_shader, fragment_shader, program, index_buffer;
     GLint vpos_location, vcol_location;
 
     glfwSetErrorCallback(error_callback);
@@ -149,14 +173,6 @@ int main(void)
 
     // NOTE: OpenGL error checks have been omitted for brevity
 
-    glGenBuffers(1, &vertex_buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glGenBuffers(1, &index_buffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
-
     vertex_shader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex_shader, 1, &vertex_shader_text, NULL);
     glCompileShader(vertex_shader);
@@ -172,18 +188,30 @@ int main(void)
 
     vpos_location = glGetAttribLocation(program, "vPos");
     vcol_location = glGetAttribLocation(program, "vCol");
-
+    
+    glGenBuffers(1, &vertex_buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glEnableVertexAttribArray(vpos_location);
-    glVertexAttribPointer(vpos_location, 4, GL_FLOAT, GL_FALSE,
-                          sizeof(float) * 8, (void*) 0);
-    glEnableVertexAttribArray(vcol_location);
-    glVertexAttribPointer(vcol_location, 4, GL_FLOAT, GL_FALSE,
-                          sizeof(float) * 8, (void*) (sizeof(float) * 4));
+    glVertexAttribPointer(vpos_location, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 0, (void*) 0);
 
+    glGenBuffers(1, &color_buffer );
+    glBindBuffer(GL_ARRAY_BUFFER, color_buffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(vcol_location);
+    glVertexAttribPointer(vcol_location, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 0, (void*) (sizeof(float) * 0));
+
+    glGenBuffers(1, &index_buffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+
+
+    int counter=0;
     while (!glfwWindowShouldClose(window))
     {
         float ratio;
         int width, height;
+        double startTime, endTime, elapsedTimeSeconds;
 
         glfwGetFramebufferSize(window, &width, &height);
         ratio = width / (float) height;
@@ -193,11 +221,14 @@ int main(void)
 
 
         glUseProgram(program);
-     //   glDrawArrays(GL_TRIANGLES, 0, 48);
+        startTime = endTime = glfwGetTime();
         glDrawElements(GL_TRIANGLES, 48, GL_UNSIGNED_INT, 0);
-
+        endTime = glfwGetTime();
+        elapsedTimeSeconds = endTime - startTime;
+        printf("time:%f\n",elapsedTimeSeconds);
         glfwSwapBuffers(window);
         glfwPollEvents();
+        counter++;
     }
 
     glfwDestroyWindow(window);

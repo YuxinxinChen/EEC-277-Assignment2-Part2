@@ -33,38 +33,39 @@
 
 static const struct
 {
-    float x, y;
-    float r, g, b;
+    float XYZW[4];
+    float RGBA[4];
 } vertices[17] =
 {
-        { 0.0f, 0.0f,  1.0f, 1.0f, 1.0f }, // 0
+        { { 0.0f, 0.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f } }, // 0
 
         // Top
-        { -0.2f, 0.8f,  0.0f, 1.0f, 0.0f}, // 1
-        { 0.2f, 0.8f,   0.0f, 0.0f, 1.0f}, // 2
-        { 0.0f, 0.8f,  0.0f, 1.0f, 1.0f}, //3
-        { 0.0f, 1.0f,  1.0f, 0.0f, 0.0f},  // 4
+        { { -0.2f, 0.8f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } }, // 1
+        { { 0.2f, 0.8f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }, // 2
+        { { 0.0f, 0.8f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f } }, //3
+        { { 0.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },  // 4
 
         // Bottom
-        { -0.2f, -0.8f,   0.0f, 0.0f, 1.0f}, // 5
-        { 0.2f, -0.8f,  0.0f, 1.0f, 0.0f}, // 6
-        { 0.0f, -0.8f,  0.0f, 1.0f, 1.0f }, //7
-        { 0.0f, -1.0f,   1.0f, 0.0f, 0.0f },  // 8
+        { { -0.2f, -0.8f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }, // 5
+        { { 0.2f, -0.8f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } }, // 6
+        { { 0.0f, -0.8f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f } }, //7
+        { { 0.0f, -1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },  // 8
 
         // Left
-        { -0.8f, -0.2f,  0.0f, 1.0f, 0.0f}, // 9
-        { -0.8f, 0.2f,  0.0f, 0.0f, 1.0f }, // 10
-        { -0.8f, 0.0f,   0.0f, 1.0f, 1.0f }, //11
-        { -1.0f, 0.0f,   1.0f, 0.0f, 0.0f },  // 12
+        { { -0.8f, -0.2f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } }, // 9
+        { { -0.8f, 0.2f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }, // 10
+        { { -0.8f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f } }, //11
+        { { -1.0f, 0.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },  // 12
 
         // Right
-        { 0.8f, -0.2f,   0.0f, 0.0f, 1.0f }, // 13
-        { 0.8f, 0.2f,   0.0f, 1.0f, 0.0f }, //14
-        {  0.8f, 0.0f,  0.0f, 1.0f, 1.0f }, //15
-        {  1.0f, 0.0f,  1.0f, 0.0f, 0.0f}  // 16
+        { { 0.8f, -0.2f, 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }, // 13
+        { { 0.8f, 0.2f, 0.0f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } }, // 14
+        { { 0.8f, 0.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f } }, //15
+        { { 1.0f, 0.0f, 0.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } }  // 16
+
 };
 
-GLuint Indices[16] = {
+GLuint Indices[48] = {
         // Top
         0, 1, 3,
         0, 3, 2,
@@ -92,21 +93,20 @@ GLuint Indices[16] = {
 
 
 static const char* vertex_shader_text =
-"uniform mat4 MVP;\n"
-"attribute vec3 vCol;\n"
-"attribute vec2 vPos;\n"
-"varying vec3 color;\n"
+"attribute vec4 vCol;\n"
+"attribute vec4 vPos;\n"
+"varying vec4 color;\n"
 "void main()\n"
 "{\n"
-"    gl_Position = MVP * vec4(vPos, 0.0, 1.0);\n"
+"    gl_Position = vPos;\n"
 "    color = vCol;\n"
 "}\n";
 
 static const char* fragment_shader_text =
-"varying vec3 color;\n"
+"varying vec4 color;\n"
 "void main()\n"
 "{\n"
-"    gl_FragColor = vec4(color, 1.0);\n"
+"    gl_FragColor = color;\n"
 "}\n";
 
 static void error_callback(int error, const char* description)
@@ -124,7 +124,7 @@ int main(void)
 {
     GLFWwindow* window;
     GLuint vertex_buffer, vertex_shader, fragment_shader, program, index_buffer;
-    GLint mvp_location, vpos_location, vcol_location;
+    GLint vpos_location, vcol_location;
 
     glfwSetErrorCallback(error_callback);
 
@@ -134,7 +134,7 @@ int main(void)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-    window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+    window = glfwCreateWindow(800, 800, "Simple example", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -153,8 +153,8 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glGenBuffers(2, &index_buffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertex_buffer);
+    glGenBuffers(1, &index_buffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
 
     vertex_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -170,22 +170,20 @@ int main(void)
     glAttachShader(program, fragment_shader);
     glLinkProgram(program);
 
-    mvp_location = glGetUniformLocation(program, "MVP");
     vpos_location = glGetAttribLocation(program, "vPos");
     vcol_location = glGetAttribLocation(program, "vCol");
 
     glEnableVertexAttribArray(vpos_location);
-    glVertexAttribPointer(vpos_location, 2, GL_FLOAT, GL_FALSE,
-                          sizeof(float) * 5, (void*) 0);
+    glVertexAttribPointer(vpos_location, 4, GL_FLOAT, GL_FALSE,
+                          sizeof(float) * 8, (void*) 0);
     glEnableVertexAttribArray(vcol_location);
-    glVertexAttribPointer(vcol_location, 3, GL_FLOAT, GL_FALSE,
-                          sizeof(float) * 5, (void*) (sizeof(float) * 2));
+    glVertexAttribPointer(vcol_location, 4, GL_FLOAT, GL_FALSE,
+                          sizeof(float) * 8, (void*) (sizeof(float) * 4));
 
     while (!glfwWindowShouldClose(window))
     {
         float ratio;
         int width, height;
-        mat4x4 m, p, mvp;
 
         glfwGetFramebufferSize(window, &width, &height);
         ratio = width / (float) height;
@@ -193,14 +191,10 @@ int main(void)
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        mat4x4_identity(m);
-        mat4x4_rotate_Z(m, m, (float) glfwGetTime());
-        mat4x4_ortho(p, -ratio, ratio, -1.f, 1.f, 1.f, -1.f);
-        mat4x4_mul(mvp, p, m);
 
         glUseProgram(program);
-        glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const GLfloat*) mvp);
-        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, Indices);
+     //   glDrawArrays(GL_TRIANGLES, 0, 48);
+        glDrawElements(GL_TRIANGLES, 48, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
